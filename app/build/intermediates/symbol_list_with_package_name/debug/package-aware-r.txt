@@ -3422,6 +3422,7 @@ id transition_transform
 id triangle
 id txtInstructions
 id txtStatus
+id txtTerminal
 id txtTitle
 id unchecked
 id uniform
@@ -3554,6 +3555,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_game
 layout activity_main
 layout custom_dialog
 layout design_bottom_navigation_item

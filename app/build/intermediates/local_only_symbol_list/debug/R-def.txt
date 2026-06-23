@@ -3,5 +3,7 @@ local
 id btnPlay
 id txtInstructions
 id txtStatus
+id txtTerminal
 id txtTitle
+layout activity_game
 layout activity_main

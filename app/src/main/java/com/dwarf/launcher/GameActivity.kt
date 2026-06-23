@@ -1,23 +1,26 @@
 package com.dwarf.launcher
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 
 class GameActivity : AppCompatActivity() {
 
-    init {
-        System.loadLibrary("native-lib")
-    }
+    private lateinit var txtTerminal: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_game)
         
-        // Lanzamos el motor optimizado
+        txtTerminal = findViewById(R.id.txtTerminal)
+        
         CoroutineScope(Dispatchers.IO).launch {
             startDwarfEngine()
         }
@@ -29,29 +32,62 @@ class GameActivity : AppCompatActivity() {
         val dfFolder = File(filesDir, "df_linux")
         val dfLibs = File(dfFolder, "libs").absolutePath
         
-        // Ejecución milimétrica y optimizada de Box64 sin PRoot:
-        // - BOX64_DYNAREC=1: Activa la compilación en caliente para rendimiento masivo de CPU.
-        // - BOX64_LD_LIBRARY_PATH: Apunta a nuestras librerías x86_64 necesarias sin buscar en Android.
-        // - BOX64_LOG=1: Muestra logs detallados de emulación en consola.
-        val command = "cd ${dfFolder.absolutePath} && " +
-                      "export BOX64_LD_LIBRARY_PATH=$sysrootLib:$dfLibs && " +
-                      "export BOX64_PATH=${filesDir.absolutePath} && " +
-                      "export BOX64_DYNAREC=1 && " +
-                      "export BOX64_LOG=1 && " +
-                      "$box64Exec ./libs/Dwarf_Fortress"
-        
-        Log.i("DwarfLauncher", "Iniciando motor de alta eficiencia: $command")
-        
-        val exitCode = executeNativeCommand(command, this)
-        
-        Log.i("DwarfLauncher", "Dwarf Fortress finalizó con código de salida: $exitCode")
+        if (!File(box64Exec).exists() || !File(sysrootLib).exists()) {
+            writeToTerminal("\n[ERROR] ¡Falta el motor de traducción Box64 o el sysroot!\n")
+            return
+        }
+
+        // Forzamos los permisos nativos a nivel de terminal por seguridad antes de arrancar
+        try {
+            Runtime.getRuntime().exec("chmod 755 $box64Exec").waitFor()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        writeToTerminal("\n[Launcher] Configurando entorno de ejecución milimétrico...\n")
+
+        try {
+            val processBuilder = ProcessBuilder()
+            
+            val env = processBuilder.environment()
+            env["BOX64_LD_LIBRARY_PATH"] = "$sysrootLib:$dfLibs"
+            env["BOX64_PATH"] = filesDir.absolutePath
+            env["BOX64_DYNAREC"] = "1"  // Compilación en caliente nativa (Alto rendimiento)
+            env["BOX64_LOG"] = "1"      // Logs detallados de traducción para verlos en pantalla
+            env["PATH"] = "/system/bin"
+
+            processBuilder.directory(dfFolder)
+            processBuilder.command(box64Exec, "./libs/Dwarf_Fortress")
+            processBuilder.redirectErrorStream(true)
+
+            writeToTerminal("[Launcher] Ejecutando: $box64Exec ./libs/Dwarf_Fortress\n\n")
+
+            val process = processBuilder.start()
+
+            val reader = BufferedReader(InputStreamReader(process.inputStream))
+            val charBuffer = CharArray(1024)
+            var bytesRead = reader.read(charBuffer)
+            
+            while (bytesRead != -1) {
+                val output = String(charBuffer, 0, bytesRead)
+                writeToTerminal(output)
+                bytesRead = reader.read(charBuffer)
+            }
+
+            val exitCode = process.waitFor()
+            writeToTerminal("\n[System] Dwarf Fortress finalizó con código de salida: $exitCode\n")
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+            writeToTerminal("\n[ERROR] Excepción crítica al iniciar el motor: ${e.message}\n")
+        }
     }
 
-    // Recibe los caracteres del juego en tiempo real
-    fun onTerminalOutput(text: String) {
-        Log.d("DwarfTerminal", text)
+    private fun writeToTerminal(text: String) {
+        runOnUiThread {
+            txtTerminal.append(text)
+            val scrollView = txtTerminal.parent as? ScrollView
+            scrollView?.fullScroll(ScrollView.FOCUS_DOWN)
+        }
     }
-
-    external fun stringFromJNI(): String
-    external fun executeNativeCommand(cmd: String, callback: Any): Int
 }
