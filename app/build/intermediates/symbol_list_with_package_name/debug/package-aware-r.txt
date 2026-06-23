@@ -3076,6 +3076,7 @@ id blocking
 id bottom
 id bounce
 id btnPlay
+id btnReset
 id buttonPanel
 id cancel_button
 id center

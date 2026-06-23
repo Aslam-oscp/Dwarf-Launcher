@@ -1,10 +1,14 @@
 [
     {
-        "merged": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-merged_res-31:/layout_activity_main.xml.flat",
-        "source": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-main-33:/layout/activity_main.xml"
+        "merged": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-merged_res-31:/layout_activity_game.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-main-33:/layout/activity_game.xml"
     },
     {
-        "merged": "com.dwarf.launcher.app-merged_res-31:/layout_activity_game.xml.flat",
-        "source": "com.dwarf.launcher.app-main-33:/layout/activity_game.xml"
+        "merged": "com.dwarf.launcher.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "com.dwarf.launcher.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "/home/codespace/.gradle/daemon/8.5/com.dwarf.launcher.app-main-33:/layout/activity_main.xml"
     }
 ]

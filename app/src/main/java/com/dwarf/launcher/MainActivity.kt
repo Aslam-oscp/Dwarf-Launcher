@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.OpenableColumns
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -35,13 +36,13 @@ import java.util.zip.ZipInputStream
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btnPlay: Button
+    private lateinit var btnReset: Button
     private lateinit var txtStatus: TextView
     private lateinit var txtInstructions: TextView
     
     private val CHANNEL_ID = "dwarf_import_channel"
     private val NOTIFICATION_ID = 1
 
-    // Apuntamos al Release de tu propio GitHub para descargar el motor Box64 empaquetado
     private val runtimeUrl = "https://github.com/Aslam-oscp/Dwarf-Launcher/releases/download/v1.0-runtime/dwarf_runtime.zip"
 
     enum class LauncherState {
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnPlay = findViewById(R.id.btnPlay)
+        btnReset = findViewById(R.id.btnReset)
         txtStatus = findViewById(R.id.txtStatus)
         txtInstructions = findViewById(R.id.txtInstructions)
         
@@ -74,6 +76,29 @@ class MainActivity : AppCompatActivity() {
                 LauncherState.NO_GAME -> checkPermissionAndOpenPicker()
                 LauncherState.NO_RUNTIME -> downloadRuntime()
                 LauncherState.READY -> startGame()
+            }
+        }
+
+        // Programamos el botón de reseteo del motor
+        btnReset.setOnClickListener {
+            btnReset.isEnabled = false
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    // Borramos físicamente Box64 y el sysroot viejo
+                    val box64File = File(filesDir, "box64")
+                    val sysrootFolder = File(filesDir, "sysroot")
+                    
+                    if (box64File.exists()) box64File.delete()
+                    if (sysrootFolder.exists()) sysrootFolder.deleteRecursively()
+                    
+                    withContext(Dispatchers.Main) {
+                        updateUI()
+                        btnReset.isEnabled = true
+                        Toast.makeText(this@MainActivity, "Motor de ejecución limpiado. Ya puedes reinstalarlo.", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -92,7 +117,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI() {
-        when (getLauncherState()) {
+        val state = getLauncherState()
+        
+        // El botón de reseteo solo es visible si ya se ha importado el juego
+        if (state == LauncherState.NO_GAME) {
+            btnReset.visibility = View.GONE
+        } else {
+            btnReset.visibility = View.VISIBLE
+        }
+
+        when (state) {
             LauncherState.NO_GAME -> {
                 txtStatus.text = "Estado: No instalado"
                 txtStatus.setTextColor(ContextCompat.getColor(this, android.R.color.holo_orange_light))
@@ -176,7 +210,6 @@ class MainActivity : AppCompatActivity() {
                 tempFile.delete()
                 configureInitTxt()
 
-                // Dar permisos nativos de ejecución al script principal de DF
                 File(filesDir, "df_linux/df").setExecutable(true)
                 File(filesDir, "df_linux/libs/Dwarf_Fortress").setExecutable(true)
 
@@ -242,11 +275,9 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) { btnPlay.text = "Instalando Motor..." }
                 showNotification("Configurando Motor", "Instalando traductor dinámico y sysroot...", 0, true)
 
-                // Extraemos el zip que contiene box64 y la carpeta sysroot minimalista
                 extractZip(runtimeZip, filesDir)
                 runtimeZip.delete()
 
-                // Otorgamos permisos nativos de ejecución al binario Box64
                 File(filesDir, "box64").setExecutable(true)
 
                 withContext(Dispatchers.Main) {

@@ -35,7 +35,7 @@
             android:id="@+id/txtInstructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Descarga Dwarf Fortress para Linux (.tar.bz2 o .zip) desde bay12games.com en tu navegador.\n\n2. Presiona el botón de abajo, busca el archivo en tus descargas y selecciónalo para importarlo."
+            android:text="1. Descarga Dwarf Fortress para Linux (.tar.bz2 o .zip) desde bay12games.com u otra fuente en tu navegador.\n\n2. Presiona el botón de abajo, busca el archivo en tus descargas e impórtalo."
             android:textColor="#B0B0B0"
             android:textSize="14sp"
             android:lineSpacingExtra="4dp"
@@ -48,7 +48,18 @@
             android:layout_height="60dp"
             android:text="Importar archivo del juego"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold" 
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Borrar e Instalar Motor de Nuevo"
+            android:textSize="14sp"
+            android:backgroundTint="#D32F2F"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
