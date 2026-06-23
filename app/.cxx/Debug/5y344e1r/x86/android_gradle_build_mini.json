@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/workspaces/Dwarf-Launcher/app/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/codespace/android-sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/workspaces/Dwarf-Launcher/app/.cxx/Debug/5y344e1r/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/codespace/android-sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/workspaces/Dwarf-Launcher/app/.cxx/Debug/5y344e1r/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "dwarf_engine::@6890427a1f51a3e7e1df": {
+      "artifactName": "dwarf_engine",
+      "abi": "x86",
+      "output": "/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/5y344e1r/obj/x86/libdwarf_engine.so",
+      "runtimeFiles": []
+    }
+  }
+}

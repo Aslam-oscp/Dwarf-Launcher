@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/workspaces/Dwarf-Launcher/app/.cxx/Debug/5y344e1r/x86",
+  "command": "/home/codespace/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=i686-none-linux-android24 --sysroot=/home/codespace/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Ddwarf_engine_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles/dwarf_engine.dir/native-lib.cpp.o -c /workspaces/Dwarf-Launcher/app/src/main/cpp/native-lib.cpp",
+  "file": "/workspaces/Dwarf-Launcher/app/src/main/cpp/native-lib.cpp"
+}
+]

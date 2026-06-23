@@ -1,0 +1,18 @@
+# ninja log v5
+0	700	1782168526447786182	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+703	790	1782168526537786182	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+2	487	1782170110232779173	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+487	552	1782170110296779172	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+2	332	1782171540525772843	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+333	397	1782171540587772842	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+4	522	1782171944977771052	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+523	608	1782171945058771052	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+4	530	1782172202187769914	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+530	593	1782172202251769914	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+9	553	1782172459915768773	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+554	613	1782172459975768773	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+1	7611	1782231967138990801	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+7611	11426	1782231971083990999	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+1	592	1782232341220009641	CMakeFiles/dwarf_engine.dir/native-lib.cpp.o	b2d2df0e88688dbf
+594	659	1782232341294009645	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4
+1	98	1782234192217102866	/workspaces/Dwarf-Launcher/app/build/intermediates/cxx/Debug/39633t4o/obj/arm64-v8a/libdwarf_engine.so	ef41ac9fe5f134f4

@@ -1,0 +1,4 @@
+/home/codespace/android-sdk/cmake/3.22.1/bin/ninja \
+  -C \
+  /workspaces/Dwarf-Launcher/app/.cxx/Debug/5y344e1r/x86 \
+  dwarf_engine
